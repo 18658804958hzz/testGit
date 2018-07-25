@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body bgcolor=#444>
+<script src='jquery.js'></script>		
+<script type='text/javascript'>
+//alert($);
+var flakeColor = "#fff";//雪片的颜色
+var flakeMin = 5;
+var flakeMax = 50;
+var newOn = 80;//间隔多长时间，产生一个雪片，值越小，雪下得越大
+var flake = $("<div></div>").css({"position":"absolute",'color':'#6cf'}).html("*");//雪片对象
+//alert(999);
+$(function () {//页面加载完毕之后
+    var documentWidth = $(document).width();//获取浏览器的宽度
+    var documentHight = $(document).height();//获取到浏览器的高度
+    setInterval(function () {
+        var startPositionLeft = Math.random() * documentWidth;//获取到雪片一开始的时候距离浏览器的left值
+        var endPositionLeft = Math.random() * documentWidth;//获取到雪片下落后距离浏览器的left值
+        var flakeSize = flakeMin + Math.random() * flakeMax;//5~55 产生雪片的随机大小
+        var startOpacity = 0.7 + 0.3 * Math.random();//雪片一开始的时候的透明度
+        var endOpacity = 0.4 + 0.3 * Math.random();//雪片下落之后的透明度 
+        var durationFall = 4000 + documentHight * 10 * Math.random();//雪片下落所需要的时间
+        flake.clone().appendTo($("body")).css({
+            "left": startPositionLeft,
+            "font-size": flakeSize,
+            "color": flakeColor,
+            "opacity": startOpacity,
+            "top": "-55px"
+        }).animate({
+            "left": endPositionLeft,
+            "top": documentHight,
+            "opacity": endOpacity
+        }, durationFall, function () {
+            $(this).remove();
+        });
+    }, newOn);
+
+/*
+    $(".ig").eq(0).show().siblings().hide();//第一张图片显示其余的图片隐藏
+    var i = 0;
+    setInterval(function () {//图片间隔3s轮播一次
+        i++;
+        if (i == 6) {
+            i = 0;
+        }
+        $(".ig").eq(i).fadeIn(300).siblings().fadeOut(300);
+    }, 3000);
+*/
+});
+</script>
+</body>
+</html>
+
+
+
